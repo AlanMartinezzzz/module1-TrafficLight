@@ -54,4 +54,72 @@ fun TrafficLightScreen() {
             delay(1000) // 1 segundo
         }
     }
+
+
+    // pare centrar
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+
+        TrafficLight(
+            activeLight = currentLight
+        )
+    }
+}
+
+
+@Composable
+fun TrafficLight(activeLight: Light) {
+
+    // Contenedor del semáforo
+    Column(
+        modifier = Modifier
+            .background(Color.Black)
+            .padding(40.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
+        // Luz Roja
+        LightCircle(
+            color = Color.Red,
+            inOn = activeLight == Light.Red
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        // Luz Amarilla
+        LightCircle(
+            color = Color.Yellow,
+            inOn = activeLight == Light.Yellow
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        // Luz Verde
+        LightCircle(
+            color = Color.Green,
+            inOn = activeLight == Light.Green
+        )
+    }
+}
+
+
+@Composable
+fun LightCircle(color: Color, inOn: Boolean) {
+
+    // -----------------------------------------
+    // Círculo con estado activo e inactivo
+    // activo brillante, inactivo tipo gris
+    // -----------------------------------------
+    Box(
+        modifier = Modifier
+            .size(80.dp)
+            .clip(CircleShape)
+            .background(
+                if (inOn) color
+                else color.copy(alpha = 0.2f)
+            )
+    )
 }
